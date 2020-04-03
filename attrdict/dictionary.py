@@ -49,6 +49,10 @@ class AttrDict(dict, MutableAttr):
             contents=super(AttrDict, self).__repr__()
         )
 
+    def __dir__(self):
+        # you may also want to filter the keys to only include the strings
+        return sorted(list(super(AttrDict, self).__dir__()) + [k for k in self.keys() if isinstance(k, str)])
+
     @classmethod
     def _constructor(cls, mapping, configuration):
         """
